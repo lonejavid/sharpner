@@ -21,7 +21,12 @@ for(var i=0;i<li.length;i++)
 
 
 //user of querySelecotr and querySelectorAll 
-var items=document.querySelectorAll('.list-group-item');
+//var items=document.querySelectorAll('.list-group-item');
 //items[1].style.background='green';
 // making the 3rd element invisible 
-items[2].style.display='none';
+//items[2].style.display='none';
+
+//creating nodes and modifying DOM
+//traversing the DOM
+var itemList=document.querySelector('#items');
+console.log(itemList.parentNode.parentNode);
