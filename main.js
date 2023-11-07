@@ -1,4 +1,4 @@
-var items=document.getElementsByClassName('list-group-item');
+/*var items=document.getElementsByClassName('list-group-item');
 
 for(var i=0;i<items.length;i++)
 {
@@ -8,7 +8,7 @@ items[2].style.backgroundColor='green';
 var newItem=document.createElement('li');
 newItem.textContent="new-item-added";
 //newItem.classList.add('new-item-added');
-var list=document.querySelector('.list-group');
+/*var list=document.querySelector('.list-group');
 list.append(newItem);
 
 //code for getElementByTagName
@@ -17,3 +17,9 @@ for(var i=0;i<li.length;i++)
 {
     li[i].style.backgroundColor='green';
 }
+*/
+
+
+//user of querySelecotr and querySelectorAll 
+var items=document.querySelectorAll('.list-group-item');
+items[1].style.background='green';
