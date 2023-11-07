@@ -33,5 +33,20 @@ itemList.parentNode.parentNode.style.backgroundColor='green';
 */
 //parentElement 
 
-var itemList=document.querySelector('#items');
-itemList.parentElement.style.backgroundColor='red';
+// var itemList=document.querySelector('#items');
+// itemList.parentElement.style.backgroundColor='red';
+
+
+//childNodes
+ var itemList=document.querySelector('#items');
+// console.log(itemList.children);
+
+//itemList.children[1].style.backgroundColor='yellow'
+
+//firstElementchild
+//console.log(itemList.firstElementChild);
+// itemList.firstElementChild.textContent="changed to Apple ";
+
+//lastElementChild
+itemList.lastElementChild.textContent='lastElement Child accessed';
+
