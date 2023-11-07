@@ -47,6 +47,18 @@ itemList.parentNode.parentNode.style.backgroundColor='green';
 //console.log(itemList.firstElementChild);
 // itemList.firstElementChild.textContent="changed to Apple ";
 
-//lastElementChild
-itemList.lastElementChild.textContent='lastElement Child accessed';
+// //lastElementChild
+// itemList.lastElementChild.textContent='lastElement Child accessed';
+//next siblings
+// console.log(itemList.nextSibling);
+// console.log(itemList.nextElementSibling)
 
+//creating new elements
+var newDiv=document.createElement('div');
+newDiv.className='hello';
+newDiv.id='hello1';
+var newDivText=document.createTextNode("Element created");
+newDiv.appendChild(newDivText);
+var container=document.querySelector('header .container');
+var h1=document.querySelector('header h1');
+container.insertBefore(newDiv,h1);
