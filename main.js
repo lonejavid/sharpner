@@ -28,5 +28,10 @@ for(var i=0;i<li.length;i++)
 
 //creating nodes and modifying DOM
 //traversing the DOM
+/* var itemList=document.querySelector('#items');
+itemList.parentNode.parentNode.style.backgroundColor='green';
+*/
+//parentElement 
+
 var itemList=document.querySelector('#items');
-console.log(itemList.parentNode.parentNode);
+itemList.parentElement.style.backgroundColor='red';
