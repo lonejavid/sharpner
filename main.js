@@ -22,4 +22,6 @@ for(var i=0;i<li.length;i++)
 
 //user of querySelecotr and querySelectorAll 
 var items=document.querySelectorAll('.list-group-item');
-items[1].style.background='green';
+//items[1].style.background='green';
+// making the 3rd element invisible 
+items[2].style.display='none';
