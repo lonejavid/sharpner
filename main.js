@@ -1,64 +1,71 @@
-/*var items=document.getElementsByClassName('list-group-item');
+var myform=document.getElementById('addForm');
+var itemList=document.getElementById('items');
+myform.addEventListener('submit',addItem);
+itemList.addEventListener('click',deleteItem);
+var filter=document.getElementById('filter');
+filter.addEventListener('keyup',filterItems);
+function addItem(e) {
+    e.preventDefault();
+    var newItem = document.getElementById('item').value;
 
-for(var i=0;i<items.length;i++)
-{
-    items[i].style.cssText = 'font-weight: bold; color: red;';
+    // Create a new li element
+    var li = document.createElement('li');
+    li.className = 'list-group-item';
+    li.appendChild(document.createTextNode(newItem));
+
+    // Create a delete button element
+    var deleteBtn = document.createElement('button');
+    deleteBtn.className = 'btn btn-danger btn-sm float-right delete';
+    deleteBtn.appendChild(document.createTextNode('x'));
+
+    // Insert a space between the delete button and the edit button
+    li.appendChild(document.createTextNode(' '));
+
+    // Create an edit button element
+    var editBtn = document.createElement('button');
+    editBtn.className = 'btn btn-primary btn-sm float-right edit'; // You can use 'btn-primary' or any suitable Bootstrap class
+    editBtn.appendChild(document.createTextNode('edit'));
+
+    li.appendChild(deleteBtn);
+    li.appendChild(editBtn); // Append the edit button to the list item
+    itemList.appendChild(li); // Append the list item to the list
 }
-items[2].style.backgroundColor='green';
-var newItem=document.createElement('li');
-newItem.textContent="new-item-added";
-//newItem.classList.add('new-item-added');
-/*var list=document.querySelector('.list-group');
-list.append(newItem);
 
-//code for getElementByTagName
-var li=document.getElementsByTagName('li');
-for(var i=0;i<li.length;i++)
+function deleteItem(e)
 {
-    li[i].style.backgroundColor='green';
+    e.preventDefault();
+    if(e.target.classList.contains('delete'))
+    {
+        if(confirm('Are you sure to delete the Item ?'))
+        {
+            var li=e.target.parentElement;
+            itemList.removeChild(li);
+        }
+    }
 }
-*/
+//filter event handler method
+function filterItems(e)
+{
+    var text=e.target.value.toLowerCase();
+    var items=document.getElementsByTagName('li');
+    Array.from(items).forEach(function(item){
+var itemName=item.firstChild.textContent;
+if(itemName.toLowerCase().indexOf(text)!=-1)
+{
+    item.style.display='block'
+}
+else{
+    item.style.display='none'
+}
 
 
-//user of querySelecotr and querySelectorAll 
-//var items=document.querySelectorAll('.list-group-item');
-//items[1].style.background='green';
-// making the 3rd element invisible 
-//items[2].style.display='none';
-
-//creating nodes and modifying DOM
-//traversing the DOM
-/* var itemList=document.querySelector('#items');
-itemList.parentNode.parentNode.style.backgroundColor='green';
-*/
-//parentElement 
-
-// var itemList=document.querySelector('#items');
-// itemList.parentElement.style.backgroundColor='red';
 
 
-//childNodes
- var itemList=document.querySelector('#items');
-// console.log(itemList.children);
 
-//itemList.children[1].style.backgroundColor='yellow'
 
-//firstElementchild
-//console.log(itemList.firstElementChild);
-// itemList.firstElementChild.textContent="changed to Apple ";
 
-// //lastElementChild
-// itemList.lastElementChild.textContent='lastElement Child accessed';
-//next siblings
-// console.log(itemList.nextSibling);
-// console.log(itemList.nextElementSibling)
 
-//creating new elements
-var newDiv=document.createElement('div');
-newDiv.className='hello';
-newDiv.id='hello1';
-var newDivText=document.createTextNode("Element created");
-newDiv.appendChild(newDivText);
-var container=document.querySelector('header .container');
-var h1=document.querySelector('header h1');
-container.insertBefore(newDiv,h1);
+
+    
+    })
+}
