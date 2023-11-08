@@ -44,6 +44,7 @@ function deleteItem(e)
     }
 }
 //filter event handler method
+//filter method added to search the items in the list
 function filterItems(e)
 {
     var text=e.target.value.toLowerCase();
@@ -56,16 +57,6 @@ if(itemName.toLowerCase().indexOf(text)!=-1)
 }
 else{
     item.style.display='none'
-}
-
-
-
-
-
-
-
-
-
-    
+}   
     })
 }
