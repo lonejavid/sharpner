@@ -16,7 +16,7 @@ function addItem(e) {
     // Create a delete button element
     var deleteBtn = document.createElement('button');
     deleteBtn.className = 'btn btn-danger btn-sm float-right delete';
-    deleteBtn.appendChild(document.createTextNode('x'));
+    deleteBtn.appendChild(document.createTextNode('delete'));
 
     // Insert a space between the delete button and the edit button
     li.appendChild(document.createTextNode(' '));
