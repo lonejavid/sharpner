@@ -1,32 +1,68 @@
 var user=document.getElementById('name');
 var emailId=document.getElementById('email');
 var myfoem=document.getElementById('myForm');
+var num=document.getElementById('number');
 //event listener to store user details in local storage
 myfoem.addEventListener('submit',onsubmit);
 //storing the user details in localstorage as an object
 function onsubmit(e)
 {
     e.preventDefault();
-    var userName=user.value;
-   var email=emailId.value;
-   var phone=number.value;
-   var users=document.getElementById('item-list');
-var full_details=userName+"    "+email+"     "+phone;
+    var UserName=user.value
+    var EmailId=emailId.value
+    var number=num.value
+    const obj={
+        UserName,
+        EmailId,
+        number
+    }
+    localStorage.setItem('obj.Eamil',JSON.stringify(obj));
+    showUserDetails(obj);
+}
+function showUserDetails(obj){
+    var parentEle=document.getElementById('item-list');
+    var childEle=document.createElement('li');
+    childEle.textContent=obj.UserName+ ' '+obj.EmailId+' ' +obj.number;
+    var delteBtn=document.createElement('input')
+    delteBtn.value="Delete"
+    delteBtn.type="button"
 
-       var li=document.createElement('li');
-           li.id="person";
-       var new_person=document.createTextNode(full_details);
-       users.append(new_person)
-   //creating the object
-//   var myobj={
-//     user_name :userName,
-//     email_id : email
-//   };
-//   //converting the user data into readable form
-//    let obj_serialized=JSON.stringify(myobj);
-//    //console.log(obj_serialized);
-//  localStorage.setItem('obj',obj_serialized);
-//  //again converting data into an object
-//  let obj_deserialzed=JSON.parse(localStorage.getItem("obj"));
-//  document.create
+
+
+    delteBtn.onclick=()=>{
+        localStorage.removeItem('obj.Email');
+        parentEle.removeChild(childEle)
+    }
+    var editBtn=document.createElement('input')
+    editBtn.value="edit"
+    editBtn.type="button"
+
+
+
+
+    editBtn.onclick=()=>{
+  localStorage.removeItem(obj.Email);
+  parentEle.removeChild(childEle);
+  //document.getElementById('user').value=obj.UserName
+ //Populate the input fields with the user details
+  document.getElementById('name').value = obj.UserName;
+  document.getElementById('email').value = obj.EmailId;
+  document.getElementById('number').value = obj.number;
+
+//   // Remove the user from local storage
+//   localStorage.removeItem('obj.Email');
+
+//   // Remove the current list item from the DOM
+//   const parentEle = document.getElementById('item-list');
+//   const childEle = parentEle.querySelector(`li:contains(${obj.UserName})`);
+//   parentEle.removeChild(childEle);
+
+}
+
+
+
+
+    childEle.appendChild(delteBtn)
+    childEle.appendChild(editBtn)
+    parentEle.append(childEle);
 }
