@@ -22,14 +22,14 @@
   <form>
     <ul id="item-list1"><ul></ul></form>
   </form>
-  <form>
+  
 
     <h3> Patients</h3>
   <ul id="item-list">
 
 
   </ul>
-  </form>
+  
   <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
   <script >
   document.getElementById('form-data').addEventListener('submit',onsubmit);
@@ -70,15 +70,33 @@
         
         for(let i=0;i<response.data.length;i++)
         {
-            let student=response.data[i]
-            let res1=`${student.name} - ${student.email_id} - ${student.number}`;
+            let patient=response.data[i]
+            let res1=`${patient.name} - ${patient.email_id} - ${patient.number}`;
+            let btn=document.createElement('button')
+            btn.innerHTML="delete";
+            btn.id="btn";
+            btn.onclick = function () {
+             deletePatient(patient._id); // Pass the patient ID to the delete function
+                    };
+
         let li=document.createElement('li');
+        
         li.innerHTML=res1;
+        li.append(btn);
         user_list.append(li);
             
         }
        })
       })
+      function deletePatient(patientId) {
+        axios.delete(`https://crudcrud.com/api/d291f3bd0a0343c087dfff335c1f94ee/patients/${patientId}`)
+            .then((response) => {
+                console.log(`Patient ${patientId} deleted`);
+                 
+             })
+            .catch((error) => console.log(error));
+            
+    }
     
     
     </script>
