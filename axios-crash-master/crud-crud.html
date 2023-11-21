@@ -31,7 +31,8 @@
   </ul>
   </form>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
-  <script >document.getElementById('form-data').addEventListener('submit',onsubmit);
+  <script >
+  document.getElementById('form-data').addEventListener('submit',onsubmit);
 
     let Uname=document.getElementById('name')
     let email=document.getElementById('email')
@@ -62,8 +63,8 @@
         li.innerHTML=result;
         user_list1.append(li);
     }
-    fetch.addEventListener('click', onclick);
-    function onclick(e){
+    //
+    window.addEventListener("DOMContentLoaded",()=>{
         axios.get("https://crudcrud.com/api/d291f3bd0a0343c087dfff335c1f94ee/patients")
        .then((response)=>{
         
@@ -77,7 +78,8 @@
             
         }
        })
-    }
+      })
+    
     
     </script>
 </body>
