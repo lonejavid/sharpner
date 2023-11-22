@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Add Order</title>
+</head>
+<body>
+  <h2>Add Order</h2>
+  
+  <form id="order-form">
+    <label for="product-name">Product Name:</label><br>
+    <input type="text" id="product-name" name="product-name"><br><br>
+
+    <label for="selling-price">Selling Price:</label><br>
+    <input type="number" id="selling-price" name="selling-price"><br><br>
+
+    <label for="category">Choose Category:</label><br>
+    <select id="category" name="category">
+      <option value="electronics">Electronics</option>
+      <option value="food">Food</option>
+      <option value="skincare">Skincare</option>
+    </select><br><br>
+
+    <button type="button" onclick="addOrder()">Add Order</button>
+  </form>
+
+  <div id="orders-list">
+    <!-- This div will contain the list of orders -->
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
+  <script>
+    function addOrder() {
+      const productName = document.getElementById('product-name').value;
+      const sellingPrice = document.getElementById('selling-price').value;
+      const category = document.getElementById('category').value;
+
+      const data = {
+        "productName": productName,
+        "sellingPrice": sellingPrice,
+        "category": category
+      };
+
+      axios.post("https://crudcrud.com/api/cc7020c0aaf744229b367027879df75c/orders", data)
+        .then(response => {
+          // After successful addition, fetch and display all orders
+          displayOrders();
+        })
+        .catch(error => {
+          console.error('Error adding order:', error);
+        });
+    }
+
+    function displayOrders() {
+      axios.get("https://crudcrud.com/api/cc7020c0aaf744229b367027879df75c/orders")
+        .then(response => {
+          const orders = response.data;
+          const ordersListDiv = document.getElementById('orders-list');
+          ordersListDiv.innerHTML = ''; // Clear existing orders
+
+          orders.forEach(order => {
+            const orderInfo = `Product: ${order.productName}, Price: ${order.sellingPrice}, Category: ${order.category}`;
+            const orderElement = document.createElement('p');
+            orderElement.textContent = orderInfo;
+
+            // Create a delete button for each order
+            const deleteButton = document.createElement('button');
+            deleteButton.textContent = 'Delete';
+            deleteButton.onclick = () => deleteOrder(order._id);
+
+            orderElement.appendChild(deleteButton);
+            ordersListDiv.appendChild(orderElement);
+          });
+        })
+        .catch(error => {
+          console.error('Error fetching orders:', error);
+        });
+    }
+
+    function deleteOrder(orderId) {
+      axios.delete(`https://crudcrud.com/api/cc7020c0aaf744229b367027879df75c/orders/${orderId}`)
+        .then(response => {
+          console.log(`Order ${orderId} deleted`);
+          displayOrders(); // Refresh the displayed list after deletion
+        })
+        .catch(error => {
+          console.error(`Error deleting order ${orderId}:`, error);
+        });
+    }
+
+    // Display orders initially when the page loads
+    displayOrders();
+  </script>
+</body>
+</html>

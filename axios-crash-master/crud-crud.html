@@ -22,101 +22,90 @@
   <form>
     <ul id="item-list1"><ul></ul></form>
   </form>
+  
 
-  <h3> Patients</h3>
-  <ul id="item-list"></ul>
+    <h3> Patients</h3>
+  <ul id="item-list">
+
+
+  </ul>
   
   <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
-  <script>
-    document.getElementById('form-data').addEventListener('submit', onSubmit);
+  <script >
+  document.getElementById('form-data').addEventListener('submit',onsubmit);
 
-    let Uname = document.getElementById('name');
-    let email1 = document.getElementById('email');
-    let phone = document.getElementById('phone');
-    let user_list = document.getElementById('item-list');
-    let user_list1 = document.getElementById('item-list1');
-
-    let fetch = document.getElementById('fetch');
-
-    function onSubmit(e) {
+    let Uname=document.getElementById('name')
+    let email1=document.getElementById('email')
+    let phone=document.getElementById('phone')
+    let user_list=document.getElementById('item-list');
+    let user_list1=document.getElementById('item-list1');
+    
+    let fetch=document.getElementById('fetch');
+    function onsubmit(e){
+        
         e.preventDefault();
-
-        let name = Uname.value;
-        let email = email1.value;
-        let number = phone.value;
-        const data = {
+    
+        let name=Uname.value
+        let email=email1.value
+        let number=phone.value
+        const data={
             name,
             email,
             number
         }
-
-        // Check if the form is in edit mode or submit mode
-        if (e.submitter.value === 'Submit') {
-            // Add a new user
-            axios.post("https://crudcrud.com/api/b41cf59d1bc64a26a51cc7d0287db996/patients", data)
-                .then((response) => console.log(response))
-                .catch((error) => console.log(error));
-        } else if (e.submitter.value === 'Update') {
-            // Update existing user details
-            const userId = e.submitter.dataset.userid;
-            axios.put(`https://crudcrud.com/api/b41cf59d1bc64a26a51cc7d0287db996/patients/${userId}`, data)
-                .then((response) => console.log(response))
-                .catch((error) => console.log(error));
-        }
-
-        let result = name + '  ' + email + '  ' + number;
-
-        let li = document.createElement('li');
-        li.innerHTML = result;
-
-        // Add edit button next to each user detail
-        let editButton = document.createElement('button');
-        editButton.innerHTML = "Edit";
-        editButton.onclick = function () {
-            // Populate the form with user details on edit button click
-            Uname.value = name;
-            email1.value = email;
-            phone.value = number;
-
-            // Change the form submit button to Update mode
-            document.getElementById('submit').value = 'Update';
-            document.getElementById('submit').setAttribute('data-userid', userId);
-        }
-
-        li.append(editButton);
-        user_list.append(li);
+        axios.post("https://crudcrud.com/api/d8be962e21d54f1ea18d7dbdaa22bd12/patients",data)
+        .then((response)=>console.log(response)).
+        catch((error)=>console.log(error));
+        let result=name+'  '+email+'  '+number;
+        
+    
+        let li=document.createElement('li');
+        li.innerHTML=result;
+        user_list1.append(li);
     }
-
-    window.addEventListener("DOMContentLoaded", () => {
-        axios.get("https://crudcrud.com/api/b41cf59d1bc64a26a51cc7d0287db996/patients")
-            .then((response) => {
-                response.data.forEach(patient => {
-                    let res1 = `${patient.name} - ${patient.email} - ${patient.number}`;
-                    let li = document.createElement('li');
-
-                    li.innerHTML = res1;
-
-                    // Add delete button next to each user detail
-                    let deleteButton = document.createElement('button');
-                    deleteButton.innerHTML = "Delete";
-                    deleteButton.onclick = function () {
-                        deletePatient(patient._id);
+    //
+    window.addEventListener("DOMContentLoaded",()=>{
+        axios.get("https://crudcrud.com/api/d8be962e21d54f1ea18d7dbdaa22bd12/patients")
+       .then((response)=>{
+        
+        for(let i=0;i<response.data.length;i++)
+        {
+            let patient=response.data[i]
+            let res1=`${patient.name} - ${patient.email} - ${patient.number}`;
+            let btn=document.createElement('button')
+            btn.innerHTML="delete";
+            btn.id="btn";
+            btn.onclick = function () {
+             deletePatient(patient._id); // Pass the patient ID to the delete function
                     };
 
-                    li.append(deleteButton);
-                    user_list.append(li);
-                });
-            })
-            .catch((error) => console.log(error));
-    });
-
+        let li=document.createElement('li');
+        
+        li.innerHTML=res1;
+        li.append(btn);
+        user_list.append(li);
+            
+        }
+       })
+      })
+    //   function deletePatient(patientId) {
+    //     axios.delete('https://crudcrud.com/api/b41cf59d1bc64a26a51cc7d0287db996/patients/?_id=patientId')
+    //         .then((response) => {
+    //             console.log(`Patient ${patientId} deleted`);
+    //             console.log(patientId);
+                 
+    //          })
+    //         .catch((error) => console.log(error));
+            
+    // }
     function deletePatient(patientId) {
-        axios.delete(`https://crudcrud.com/api/b41cf59d1bc64a26a51cc7d0287db996/patients/${patientId}`)
-            .then((response) => {
-                console.log(`Patient ${patientId} deleted`);
-            })
-            .catch((error) => console.error('Error deleting patient:', error));
-    }
-  </script>
+    // axios.delete(`https://crudcrud.com/api/b41cf59d1bc64a26a51cc7d0287db996/patients/${patientId}`)
+    //     .then((response) => {
+    //         console.log(`Patient ${patientId} deleted`);
+    //     })
+    //     .catch((error) => console.log('Error deleting patient:', error));
+   // console.log(`Patient ${patientId} deleted`);
+}
+    </script>
 </body>
 </html>
